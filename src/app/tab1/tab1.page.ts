@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { Platform } from '@ionic/angular';
 import { BehaviorSubject } from "rxjs";
+
 
 const circleR = 80;
 const circleDasharray = 2 * Math.PI * circleR;
@@ -15,29 +18,56 @@ export class Tab1Page {
 
   timer: number;
   interval;
-  startDuration = 1;
+  startDuration = 25;
+  pomodoroSeries: number;
 
   circleR = circleR;
   circleDasharray = circleDasharray;
 
   state: "start" | "stop" = "stop";
 
-  constructor() {}
+  constructor(private nativeAudio: NativeAudio, private platform: Platform) {
+    this.platform.ready().then(() => {
+         
+      this.nativeAudio.preloadSimple('bell', 'assets/sound/bells.mp3').then(() => {
+        console.log("Audio Loaded!");
+      }, (err) => {
+        console.log("Audio Failed: " + err);
+      });   
+      this.pomodoroSeries = 0;   
+    });   
+  }
 
   startTimer(duration: number) {
+    
     this.state = "start";
     clearInterval(this.interval);
-    this.timer = duration * 5;
+    this.timer = duration * 60;
     this.updateTimeValue();
     this.interval = setInterval(() => {
       this.updateTimeValue();
-    }, 1000);
+    }, 5);
   }
 
   stopTimer() {
     clearInterval(this.interval);
     this.time.next("00:00");
+    this.percent.next(100);
     this.state = "stop";
+  }
+
+  toggleStartStop() {
+    if(this.state === 'start') {
+      this.stopTimer();
+    }
+    else {
+      this.startTimer(this.startDuration);
+    }
+  }
+
+  swapDuration() {
+    this.startDuration = this.startDuration === 25 ? 5 : 25; 
+    this.pomodoroSeries++;
   }
 
   percentageOffset(percent) {
@@ -46,6 +76,7 @@ export class Tab1Page {
   }
 
   updateTimeValue() {
+    
     let minutes: any = this.timer / 60;
     let seconds: any = this.timer % 60;
 
@@ -61,7 +92,14 @@ export class Tab1Page {
 
     --this.timer;
     if (this.timer < -1) {
+      this.nativeAudio.play('bell');
+      this.swapDuration();
       this.startTimer(this.startDuration);
+      console.log(this.pomodoroSeries);
+      if(this.pomodoroSeries == 8) {
+        this.stopTimer();
+        this.pomodoroSeries = 0;
+      }
     }
   }
 }
