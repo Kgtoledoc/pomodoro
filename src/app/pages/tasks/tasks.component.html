@@ -1,3 +1,22 @@
-<p>
-  tasks works!
-</p>
+<ion-header [translucent]="true">
+  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    </ion-buttons>   
+    <ion-title>
+      New Task
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Start Time</ion-label>
+      <ion-datetime [(ngModel)]="date" (ionChange)="do($event)" display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+    </ion-item>
+  </ion-list> 
+</ion-content>

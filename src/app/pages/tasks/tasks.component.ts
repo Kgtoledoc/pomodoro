@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tasks',
@@ -7,8 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
-  constructor() { }
+  public date;
+
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {}
+
+  dismiss() {
+    this.modalController.dismiss({
+      'dismissed': true
+    })
+  }
+
+  do(d){
+    console.log("date", d);
+  }
 
 }

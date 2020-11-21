@@ -19,6 +19,9 @@ export class Tab2Page {
     const modal = await this.modalController.create({
       component: TasksComponent
     });
+    modal.onDidDismiss().then((data) => {
+      console.log(data);
+    })
     return await modal.present();
   }
 
