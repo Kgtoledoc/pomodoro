@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-tasks',
@@ -8,14 +8,24 @@ import { ModalController } from '@ionic/angular';
 })
 export class NewTasksPage implements OnInit {
 
-  title: string;
-  description: string;
-  date: any;
+  title: string = "";
+  description: string = "";
+  date: string = "";
 
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom'
+    });   
+
+    toast.present();
   }
 
   dismiss() {
@@ -26,15 +36,18 @@ export class NewTasksPage implements OnInit {
 
   
   createTasks() {
-    console.log(this.title);
-    console.log(this.description);
-    console.log(this.date)
-    let task = {
-      "title": this.title,
-      "description": this.description,
-      "date": this.date
+     
+    if(this.title.length > 0 && this.description.length > 0 && this.date.length > 0) {
+      let task = {
+        "title": this.title,
+        "description": this.description,
+        "date": this.date
+      }
+      this.modalController.dismiss(task);
+    } else {
+      this.presentToast("Fill all fields");
     }
-    this.modalController.dismiss(task);
+    
     
   }
 
