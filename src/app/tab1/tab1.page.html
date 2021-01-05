@@ -32,15 +32,19 @@
       />
       <text x="50%" y="55%" class="timer-text">{{ time | async }}</text>
     </svg>
-    <svg 
-    xmlns="http://www.w3.org/2000/svg"
-    class="timer-icons"
-    width="50px"
-    height="50px"
-    viewBox="0 0 512 512">
-    <path *ngIf="state === 'stop'" d="M96 52v408l320-204L96 52z"/>
-    <path *ngIf="state === 'start'" d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"/>
-  </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="timer-icons"
+      width="50px"
+      height="50px"
+      viewBox="0 0 512 512"
+    >
+      <path *ngIf="state === 'stop'" d="M96 52v408l320-204L96 52z" />
+      <path
+        *ngIf="state === 'start'"
+        d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"
+      />
+    </svg>
   </ion-row>
 </ion-content>
 <ion-footer class="footer">

@@ -23,5 +23,10 @@
     <param name="android-package" value="com.rjfun.cordova.plugin.nativeaudio.NativeAudio"/>
   </feature>
 
+  <feature name="TTS">
+    <param name="android-package" value="com.wordsbaking.cordova.tts.TTS"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   
 </widget>
