@@ -1,10 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Timer </ion-title>
+    <ion-title slot="end">{{pomodoroSeries}} / {{pomodoroTotal}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-button
+    *ngIf="state === 'stop'"
+    expand="full"
+    fill="clear"
+    color="primary"
+    (click)="startTimer(startDuration)"
+    >START</ion-button
+  >
+  <ion-button
+    *ngIf="state === 'start'"
+    expand="full"
+    fill="clear"
+    color="danger"
+    (click)="stopTimer()"
+    >STOP</ion-button
+  >
   <ion-row class="ion-justify-content-center">
     <svg id="progress-circle" width="50vh" height="50vh" viewBox="0 0 200 200">
       <linearGradient id="linearColors1" x1="0" y1="0" x2="1" y2="1">
@@ -38,28 +55,13 @@
       width="50px"
       height="50px"
       viewBox="0 0 512 512"
-    >
-      <path *ngIf="state === 'stop'" d="M96 52v408l320-204L96 52z" />
-      <path
-        *ngIf="state === 'start'"
-        d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"
-      />
-    </svg>
+    ></svg>
   </ion-row>
-</ion-content>
-<ion-footer class="footer">
-  <ion-button
-    *ngIf="state === 'stop'"
-    expand="block"
+  <!-- <ion-button
+    expand="full"
+    fill="clear"
     color="primary"
-    (click)="startTimer(startDuration)"
-    >START</ion-button
-  >
-  <ion-button
-    *ngIf="state === 'start'"
-    expand="block"
-    color="danger"
-    (click)="stopTimer()"
-    >STOP</ion-button
-  >
-</ion-footer>
+    (click)="playSpeechToText()"
+    >Speech</ion-button
+  > -->
+</ion-content>

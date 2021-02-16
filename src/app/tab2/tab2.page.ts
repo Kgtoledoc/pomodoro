@@ -24,28 +24,39 @@ export class Tab2Page {
     await LocalNotifications.requestPermissions();
   }
 
+  delete(item) {
+    console.log(item);
+  }
+
   async scheduleBasic() {
-    await LocalNotifications.schedule({
-      notifications: [
-        {
-          title: "Local Notification 1",
-          body: "First Basic Local Notification",
-          id: 1,
-          extra: {
-            data: "Pass data to your handler",
+    console.log("Schedule the tasks!");
+    this.tasks.forEach((e, index) => {
+      LocalNotifications.schedule({
+        notifications: [
+          {
+            title: e.title,
+            body: e.description,
+            id: index + 1,
+            extra: {
+              data: "Pass data to your handler",
+            },
+            iconColor: "#0000FF",
+            schedule: {
+              at: new Date(Date.now() + 1000 * ((index + 1) * 5)),
+            },
           },
-          iconColor: "#0000FF",
-          schedule: {
-            at: new Date(Date.now() + 1000 * 3),
-          },
-        },
-      ],
+        ],
+      });
     });
   }
 
-  async addTasks() {
+  loadTheNotifications() {
     this.scheduleBasic();
-    /*  const modal = await this.modalController.create({
+  }
+
+  async addTasks() {
+    //this.scheduleBasic();
+    const modal = await this.modalController.create({
       component: NewTasksPage,
     });
     modal.onDidDismiss().then((d) => {
@@ -57,6 +68,6 @@ export class Tab2Page {
       console.log(this.tasks);
     });
 
-    return await modal.present(); */
+    return await modal.present();
   }
 }
