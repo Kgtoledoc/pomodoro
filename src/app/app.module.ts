@@ -12,8 +12,8 @@ import { NativeAudio } from "@ionic-native/native-audio/ngx";
 import { FormsModule } from "@angular/forms";
 import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { TextToSpeech } from "@ionic-native/text-to-speech/ngx";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,9 @@ import { environment } from '../environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+    }),
   ],
   providers: [
     StatusBar,
@@ -31,6 +33,7 @@ import { environment } from '../environments/environment';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     NativeAudio,
     TextToSpeech,
+    LocalNotifications,
   ],
   bootstrap: [AppComponent],
 })

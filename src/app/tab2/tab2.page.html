@@ -11,7 +11,11 @@
   <ion-list>
     <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
-        <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+        <ion-checkbox
+          slot="end"
+          [(ngModel)]="task.isChecked"
+          disabled="{{task.isChecked}}"
+        ></ion-checkbox>
         <ion-label>{{task.title}}</ion-label>
         <ion-label class="end_side_class"
           >{{task.date | date:'shortTime'}}</ion-label

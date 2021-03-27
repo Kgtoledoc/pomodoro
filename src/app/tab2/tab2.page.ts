@@ -1,9 +1,12 @@
+import { importExpr } from "@angular/compiler/src/output/output_ast";
 import { Component } from "@angular/core";
 import { LocalNotification, Plugins } from "@capacitor/core";
 import { ModalController } from "@ionic/angular";
 import { ExploreContainerComponent } from "../explore-container/explore-container.component";
 import { NewTasksPage } from "../pages/new-tasks/new-tasks.page";
+//import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 const { LocalNotifications } = Plugins;
+
 @Component({
   selector: "app-tab2",
   templateUrl: "tab2.page.html",
@@ -12,7 +15,10 @@ const { LocalNotifications } = Plugins;
 export class Tab2Page {
   public tasks: Array<any>;
 
-  constructor(public modalController: ModalController) {}
+  constructor(
+    public modalController: ModalController
+  ) //private localNotifications: LocalNotifications
+  {}
 
   async ngOnInit() {
     this.tasks = JSON.parse(localStorage.getItem("tasks"))
@@ -21,11 +27,17 @@ export class Tab2Page {
 
     console.log(this.tasks);
 
-    await LocalNotifications.requestPermissions();
+    //await this.localNotifications.requestPermission();
+    await LocalNotifications.requestPermission();
   }
 
   delete(item) {
     console.log(item);
+    this.tasks = this.tasks.filter((e) => {
+      return item.id != e.id;
+    });
+
+    console.log(this.tasks);
   }
 
   async scheduleBasic() {
