@@ -16,9 +16,8 @@ export class Tab2Page {
   public tasks: Array<any>;
 
   constructor(
-    public modalController: ModalController
-  ) //private localNotifications: LocalNotifications
-  {}
+    public modalController: ModalController //private localNotifications: LocalNotifications
+  ) {}
 
   async ngOnInit() {
     this.tasks = JSON.parse(localStorage.getItem("tasks"))
@@ -38,11 +37,33 @@ export class Tab2Page {
     });
 
     console.log(this.tasks);
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
+  async scheduleOneTask(task) {
+    console.log("Schedule the Task");
+    LocalNotifications.schedule({
+      notifications: [
+        {
+          title: task.title,
+          body: task.description,
+          id: Math.random() * 100,
+          extra: {
+            data: "Pass data to your handler",
+          },
+          iconColor: "#0000FF",
+          schedule: {
+            at: new Date(task.date),
+          },
+        },
+      ],
+    });
   }
 
-  async scheduleBasic() {
-    console.log("Schedule the tasks!");
+  async scheduleBasicAllTasks() {
+    console.log("Schedule all tasks!");
+
     this.tasks.forEach((e, index) => {
+      //console.log(new Date(e.date));
       LocalNotifications.schedule({
         notifications: [
           {
@@ -54,7 +75,7 @@ export class Tab2Page {
             },
             iconColor: "#0000FF",
             schedule: {
-              at: new Date(Date.now() + 1000 * ((index + 1) * 5)),
+              at: new Date(e.date),
             },
           },
         ],
@@ -63,11 +84,10 @@ export class Tab2Page {
   }
 
   loadTheNotifications() {
-    this.scheduleBasic();
+    //this.scheduleBasic();
   }
 
   async addTasks() {
-    //this.scheduleBasic();
     const modal = await this.modalController.create({
       component: NewTasksPage,
     });
@@ -76,8 +96,13 @@ export class Tab2Page {
       if (d.data["dismissed"] != true) {
         this.tasks.push(d.data);
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        if (d.data.isScheduled == true) {
+          this.scheduleOneTask(d.data);
+        } else {
+          console.log("Not scheduled!");
+        }
       }
-      console.log(this.tasks);
+      //console.log(this.tasks);
     });
 
     return await modal.present();

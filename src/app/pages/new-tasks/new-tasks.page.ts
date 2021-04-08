@@ -14,13 +14,16 @@ export class NewTasksPage implements OnInit {
   description: string = "";
   date: string = "";
   isChecked: Boolean;
+  isScheduled: Boolean;
 
   constructor(
     public modalController: ModalController,
     private toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isScheduled = false;
+  }
 
   async presentToast(text) {
     const toast = await this.toastCtrl.create({
@@ -42,14 +45,40 @@ export class NewTasksPage implements OnInit {
     if (
       this.title.length > 0 &&
       this.description.length > 0 &&
+      this.isScheduled == true &&
       this.date.length > 0
+    ) {
+      let seconds = this.date.split(":")[2].split(".");
+
+      seconds.splice(0, 1, "00");
+
+      let secondsModified = seconds.join(".");
+
+      let dateArray = this.date.split(":");
+      dateArray.splice(2, 1, secondsModified);
+      let dateModified = dateArray.join(":");
+
+      let task = {
+        title: this.title,
+        description: this.description,
+        date: dateModified,
+        isChecked: false,
+        id: uuidv4(),
+        isScheduled: this.isScheduled,
+      };
+      this.modalController.dismiss(task);
+    } else if (
+      this.title.length > 0 &&
+      this.description.length > 0 &&
+      this.isScheduled == false
     ) {
       let task = {
         title: this.title,
         description: this.description,
-        date: this.date,
+        date: undefined,
         isChecked: false,
         id: uuidv4(),
+        isScheduled: this.isScheduled,
       };
       this.modalController.dismiss(task);
     } else {

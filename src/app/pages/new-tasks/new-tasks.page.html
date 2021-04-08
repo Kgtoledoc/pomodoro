@@ -27,12 +27,18 @@
       ></ion-textarea>
     </ion-item>
     <ion-item>
+      <ion-label>Schedule</ion-label>
+      <ion-toggle [(ngModel)]="isScheduled"></ion-toggle>
+    </ion-item>
+    <ion-item disabled="{{!isScheduled}}">
       <ion-label>Start Time</ion-label>
       <ion-datetime
         [(ngModel)]="date"
         (ionChange)="do($event)"
-        display-format="h:mm A"
-        picker-format="h:mm A"
+        display-format="HH:mm"
+        picker-format="HH:mm"
+        hourValues="4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21"
+        minuteValues="0,10,20,30,40"
       ></ion-datetime>
     </ion-item>
   </ion-list>
