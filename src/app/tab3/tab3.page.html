@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Expenses </ion-title>
+    <ion-title>List of Expenses</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -8,17 +8,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+  <ion-list>
+    <ion-item *ngFor="let expense of expensesArray">
+      {{expense.object}} {{expense.price}} {{expense.date | date:'dd/mm/yy'}}
+    </ion-item>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addTasks()">
+    <ion-fab-button (click)="addExpenses()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
 </ion-content>

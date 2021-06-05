@@ -1,70 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Timer </ion-title>
-    <ion-title slot="end">{{pomodoroSeries}} / {{pomodoroTotal}}</ion-title>
+    <ion-title> List of Goals </ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-button
-    *ngIf="state === 'stop'"
-    expand="full"
-    fill="clear"
-    color="primary"
-    (click)="startTimer(startDuration)"
-    >START</ion-button
-  >
-  <ion-button
-    *ngIf="state === 'start'"
-    expand="full"
-    fill="clear"
-    color="danger"
-    (click)="stopTimer()"
-    >STOP</ion-button
-  >
-  <ion-row class="ion-justify-content-center">
-    <svg id="progress-circle" width="50vh" height="50vh" viewBox="0 0 200 200">
-      <linearGradient id="linearColors1" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#ddd6f3"></stop>
-        <stop offset="100%" stop-color="#faaca8"></stop>
-      </linearGradient>
-      <circle
-        cx="50%"
-        cy="50%"
-        [attr.r]="circleR"
-        fill="none"
-        stroke="#f3f3f3"
-        stroke-width="12"
-      />
-      <circle
-        cx="50%"
-        cy="50%"
-        [attr.r]="circleR"
-        fill="none"
-        stroke="url(#linearColors1)"
-        stroke-linecap="round"
-        stroke-width="12"
-        [attr.stroke-dasharray]="circleDasharray"
-        [attr.stroke-dashoffset]="percentageOffset(percent | async)"
-      />
-      <text x="50%" y="55%" class="timer-text">{{ time | async }}</text>
-    </svg>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="timer-icons"
-      width="50px"
-      height="50px"
-      viewBox="0 0 512 512"
-    ></svg>
-  </ion-row>
-  <!-- <ion-button
-    expand="full"
-    fill="clear"
-    color="primary"
-    (click)="playSpeechToText()"
-    >Speech</ion-button
-  > -->
-</ion-content>
+<ion-content [fullscreen]="true"> Hello world </ion-content>

@@ -6,7 +6,26 @@ import { Component } from "@angular/core";
   styleUrls: ["tab3.page.scss"],
 })
 export class Tab3Page {
-  constructor() {}
+  totalExpenses: Array<any>;
+  expensesArray: Array<any>;
+
+  categoryArray: Array<any>;
+
+  expenseObject = {
+    date: new Date(),
+    price: "1000",
+    object: "Almuerzo",
+    category: "Alimentacion",
+  };
+
+  constructor() {
+    this.expensesArray = [];
+    this.expensesArray.push(this.expenseObject);
+  }
+
+  ngOnInit() {
+    this.expensesArray;
+  }
 
   addTasks() {}
 }

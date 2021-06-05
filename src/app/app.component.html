@@ -2,16 +2,42 @@
   <ion-menu side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>Start Menu</ion-title>
+        <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="analytics-outline"> </ion-icon>
+          <ion-label>Historic</ion-label>
+          <ion-button slot="end">
+            <ion-icon name="chevron-forward-outline"> </ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="star-outline"> </ion-icon>
+          <ion-label>Categories</ion-label>
+          <ion-button slot="end">
+            <ion-icon name="chevron-forward-outline"> </ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="cash-outline"> </ion-icon>
+          <ion-label>Expenses</ion-label>
+          <ion-button slot="end">
+            <ion-icon name="chevron-forward-outline"> </ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="rocket-outline"> </ion-icon>
+          <ion-label>Goals</ion-label>
+          <ion-button slot="end">
+            <ion-icon name="chevron-forward-outline"> </ion-icon>
+          </ion-button>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>

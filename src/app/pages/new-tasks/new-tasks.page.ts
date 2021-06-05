@@ -11,7 +11,6 @@ import { v4 as uuidv4 } from "uuid";
 export class NewTasksPage implements OnInit {
   id: string;
   title: string = "";
-  description: string = "";
   date: string = "";
   isChecked: Boolean;
   isScheduled: Boolean;
@@ -44,37 +43,27 @@ export class NewTasksPage implements OnInit {
   createTasks() {
     if (
       this.title.length > 0 &&
-      this.description.length > 0 &&
       this.isScheduled == true &&
       this.date.length > 0
     ) {
       let seconds = this.date.split(":")[2].split(".");
-
       seconds.splice(0, 1, "00");
-
       let secondsModified = seconds.join(".");
-
       let dateArray = this.date.split(":");
       dateArray.splice(2, 1, secondsModified);
       let dateModified = dateArray.join(":");
 
       let task = {
         title: this.title,
-        description: this.description,
-        date: dateModified,
+        date: new Date(dateModified),
         isChecked: false,
         id: uuidv4(),
         isScheduled: this.isScheduled,
       };
       this.modalController.dismiss(task);
-    } else if (
-      this.title.length > 0 &&
-      this.description.length > 0 &&
-      this.isScheduled == false
-    ) {
+    } else if (this.title.length > 0 && this.isScheduled == false) {
       let task = {
         title: this.title,
-        description: this.description,
         date: undefined,
         isChecked: false,
         id: uuidv4(),
