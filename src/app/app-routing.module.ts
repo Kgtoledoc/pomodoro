@@ -13,17 +13,30 @@ const routes: Routes = [
       import("./pages/new-tasks/new-tasks.module").then(
         (m) => m.NewTasksPageModule
       ),
+  },
+  {
+    path: "task-historic",
+    loadChildren: () =>
+      import("./pages/task-historic/task-historic.module").then(
+        (m) => m.TaskHistoricPageModule
+      ),
+  },
+  {
+    path: "new-goals",
+    loadChildren: () =>
+      import("./pages/new-goals/new-goals.module").then(
+        (m) => m.NewGoalsPageModule
+      ),
+  },
+  {
+    path: "new-category",
+    loadChildren: () =>
+      import("./pages/new-category/new-category.module").then(
+        (m) => m.NewCategoryPageModule
+      ),
   },  {
-    path: 'task-historic',
-    loadChildren: () => import('./pages/task-historic/task-historic.module').then( m => m.TaskHistoricPageModule)
-  },
-  {
-    path: 'category-historic',
-    loadChildren: () => import('./pages/category-historic/category-historic.module').then( m => m.CategoryHistoricPageModule)
-  },
-  {
-    path: 'expenses-historic',
-    loadChildren: () => import('./pages/expenses-historic/expenses-historic.module').then( m => m.ExpensesHistoricPageModule)
+    path: 'categories-tabs',
+    loadChildren: () => import('./categories-tabs/categories-tabs.module').then( m => m.CategoriesTabsPageModule)
   },
 
 ];

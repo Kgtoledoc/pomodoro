@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>tab4</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button
+        (click)="navigateTo($event,'categories')"
+        tab="categories"
+      >
+        <ion-icon name="star"></ion-icon>
+        <ion-label>Categories</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button
+        (click)="navigateTo($event,'expense-data')"
+        tab="expense-data"
+      >
+        <ion-icon name="cash-outline"></ion-icon>
+        <ion-label>Expenses</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
