@@ -7,12 +7,17 @@
     </ion-header>
     <ion-content>
       <ion-list>
+        <ion-item button (click)="navigateTo('')" detail>
+          <ion-icon slot="start" name="home-outline"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+
         <ion-item button (click)="navigateTo('historic')" detail>
           <ion-icon slot="start" name="analytics-outline"> </ion-icon>
           <ion-label>Historic</ion-label>
         </ion-item>
 
-        <ion-item button (click)="navigateTo('/tab4/categories')" detail>
+        <ion-item button (click)="navigateTo('/categories')" detail>
           <ion-icon slot="start" name="star-outline"> </ion-icon>
           <ion-label>Categories</ion-label>
         </ion-item>

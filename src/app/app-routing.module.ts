@@ -34,11 +34,21 @@ const routes: Routes = [
       import("./pages/new-category/new-category.module").then(
         (m) => m.NewCategoryPageModule
       ),
-  },  {
-    path: 'categories-tabs',
-    loadChildren: () => import('./categories-tabs/categories-tabs.module').then( m => m.CategoriesTabsPageModule)
   },
-
+  {
+    path: "categories-tabs",
+    loadChildren: () =>
+      import("./categories-tabs/categories-tabs.module").then(
+        (m) => m.CategoriesTabsPageModule
+      ),
+  },
+  {
+    path: "categories",
+    loadChildren: () =>
+      import("./pages/categories/categories.module").then(
+        (m) => m.CategoriesPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [

@@ -35,9 +35,12 @@ export class Tab2Page {
     private alertController: AlertController,
     private toastCtrl: ToastController,
     private nativeAudio: NativeAudio //private localNotifications: LocalNotifications
-  ) {}
+  ) {
+    console.log("INSIDE CONTRUCTOR");
+  }
 
   async ngOnInit() {
+    console.log("INSIDE NGONINIT");
     this.noScheduledTasks = JSON.parse(localStorage.getItem("noScheduledTasks"))
       ? JSON.parse(localStorage.getItem("noScheduledTasks"))
       : [];
