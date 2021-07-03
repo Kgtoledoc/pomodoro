@@ -9,4 +9,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-input
+        class="end_side_class"
+        type="text"
+        [(ngModel)]="title"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="block" (click)="createCategory()">Create</ion-button>
+</ion-footer>

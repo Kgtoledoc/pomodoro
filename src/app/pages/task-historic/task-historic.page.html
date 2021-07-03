@@ -1,9 +1,18 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>task-historic</ion-title>
+    <ion-title> Task Historic </ion-title>
+    <!-- <ion-button slot="end" fill="none" (click)="transformDate()">
+      <ion-icon name="reload-outline" color=""></ion-icon>
+    </ion-button> -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button slot="end" (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-</ion-content>
+<ion-content> </ion-content>

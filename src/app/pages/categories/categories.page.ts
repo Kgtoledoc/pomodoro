@@ -9,22 +9,29 @@ import { NewCategoryPage } from "../new-category/new-category.page";
   styleUrls: ["./categories.page.scss"],
 })
 export class CategoriesPage implements OnInit {
+  categories: Array<any>;
   constructor(
     private modalController: ModalController,
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.categories = JSON.parse(localStorage.getItem("categories"))
+      ? JSON.parse(localStorage.getItem("categories"))
+      : [];
+  }
 
   async createCategories() {
     const modal = await this.modalController.create({
       component: NewCategoryPage,
     });
 
-    modal.onDidDismiss().then((goal) => {
-      console.log(goal);
-      if (goal.data["dismissed"] != true) {
-        console.log(goal.data);
+    modal.onDidDismiss().then((category) => {
+      console.log(category);
+      if (category.data["dismissed"] != true) {
+        console.log(category.data);
+        this.categories.push(category.data);
+        localStorage.setItem("categories", JSON.stringify(this.categories));
       }
     });
 

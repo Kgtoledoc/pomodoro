@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Task Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item lines="none">
+      <ion-label>Title</ion-label>
+      <h3>{{this.task.title}}</h3>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Date</ion-label>
+      <h3>{{task.date}}</h3>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header lines="none">
+      <ion-label>Subtask</ion-label>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let subtask of this.task.subtaskArray">
+      <ion-item lines="none">
+        <ion-checkbox
+          slot="start"
+          [(ngModel)]="subtask.isChecked"
+          checked="{{subtask.isChecked}}"
+          (ionChange)="check(task)"
+        ></ion-checkbox>
+
+        <p>{{subtask.title}}</p>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="delete(task)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
