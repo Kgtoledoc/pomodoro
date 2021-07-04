@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { NewExpenseComponent } from "../pages/new-expense/new-expense.component";
+import { NewExpensePage } from "../pages/new-expense/new-expense.page";
 
 @Component({
   selector: "app-tab3",
@@ -16,7 +16,7 @@ export class Tab3Page {
   expenseObject = {
     date: new Date(),
     price: "1000",
-    object: "Almuerzo",
+    name: "Almuerzo",
     category: "Alimentacion",
   };
 
@@ -31,10 +31,11 @@ export class Tab3Page {
 
   async addExpenses() {
     const modal = await this.modalController.create({
-      component: NewExpenseComponent,
+      component: NewExpensePage,
     });
     modal.onDidDismiss().then((d) => {
       console.log(d);
+      this.expensesArray.push(d.data);
     });
 
     return await modal.present();

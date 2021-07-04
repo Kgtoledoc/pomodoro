@@ -10,7 +10,13 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-item *ngFor="let expense of expensesArray">
-      {{expense.object}} {{expense.price}} {{expense.date | date:'dd/mm/yy'}}
+      <ion-label color="dark"> <p>{{expense.name}}</p> </ion-label>
+      <ion-label color="dark">
+        <p>{{expense.price | currency:'CO'}}</p></ion-label
+      >
+      <ion-label color="dark">
+        <p>{{expense.date | date:'dd/mm/yy'}}</p></ion-label
+      >
     </ion-item>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

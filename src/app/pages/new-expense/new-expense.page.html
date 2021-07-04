@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Expense</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input
+        class="end_side_class"
+        type="text"
+        [(ngModel)]="name"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Price</ion-label>
+      <i>$</i>
+      <ion-input
+        class="end_side_class"
+        type="number"
+        [(ngModel)]="price"
+      ></ion-input>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-input
+        class="end_side_class"
+        type="text"
+        [(ngModel)]="category"
+      ></ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select [(ngModel)]="category">
+        <ion-select-option
+          *ngFor="let category of categories"
+          [value]="category"
+          >{{category}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="block" (click)="createExpense()">Create</ion-button>
+</ion-footer>

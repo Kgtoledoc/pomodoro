@@ -58,9 +58,7 @@ export class Tab2Page {
         id: 123123,
         title: "Task 1",
         date: "06/11/1992",
-        category: {
-          
-        }
+        category: {},
         isChecked: false,
         isScheduled: true,
         subtask: true,

@@ -48,7 +48,11 @@ const routes: Routes = [
       import("./pages/categories/categories.module").then(
         (m) => m.CategoriesPageModule
       ),
+  },  {
+    path: 'new-expense',
+    loadChildren: () => import('./pages/new-expense/new-expense.module').then( m => m.NewExpensePageModule)
   },
+
 ];
 @NgModule({
   imports: [
