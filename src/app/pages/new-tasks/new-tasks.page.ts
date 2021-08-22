@@ -59,6 +59,8 @@ export class NewTasksPage implements OnInit {
         isChecked: false,
         id: uuidv4(),
         isScheduled: this.isScheduled,
+        subtaskArray: [],
+        subtask: true,
       };
       this.modalController.dismiss(task);
     } else if (this.title.length > 0 && this.isScheduled == false) {
@@ -68,6 +70,8 @@ export class NewTasksPage implements OnInit {
         isChecked: false,
         id: uuidv4(),
         isScheduled: this.isScheduled,
+        subtaskArray: [],
+        subtask: true,
       };
       this.modalController.dismiss(task);
     } else {

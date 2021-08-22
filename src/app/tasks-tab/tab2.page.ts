@@ -20,8 +20,8 @@ const { LocalNotifications } = Plugins;
   styleUrls: ["tab2.page.scss"],
 })
 export class Tab2Page {
-  noScheduledTasks: Array<any>;
   scheduledTasks: Array<any>;
+  state: string = "";
 
   constructor(
     public modalController: ModalController,
@@ -36,9 +36,21 @@ export class Tab2Page {
 
   async ngOnInit() {
     console.log("INSIDE NGONINIT");
-    this.noScheduledTasks = JSON.parse(localStorage.getItem("noScheduledTasks"))
-      ? JSON.parse(localStorage.getItem("noScheduledTasks"))
+    await LocalNotifications.requestPermission();
+    this.state = "ngOnInit";
+
+    this.scheduledTasks = JSON.parse(localStorage.getItem("scheduledTasks"))
+      ? JSON.parse(localStorage.getItem("scheduledTasks"))
       : [];
+    this.scheduledTasks = this.sortArray(this.scheduledTasks);
+    this.transformDate();
+    if (this.scheduledTasks.length > 0) {
+      this.scheduleBasicAllTasks();
+    }
+  }
+
+  ionViewDidEnter() {
+    console.log("IONVIEWDIDENTER");
 
     this.scheduledTasks = JSON.parse(localStorage.getItem("scheduledTasks"))
       ? JSON.parse(localStorage.getItem("scheduledTasks"))
@@ -48,48 +60,7 @@ export class Tab2Page {
 
     this.transformDate();
 
-    await LocalNotifications.requestPermission();
-    if (this.scheduledTasks.length > 0) {
-      this.scheduleBasicAllTasks();
-    }
-
-    this.scheduledTasks = [
-      {
-        id: 123123,
-        title: "Task 1",
-        date: "06/11/1992",
-        category: {},
-        isChecked: false,
-        isScheduled: true,
-        subtask: true,
-        subtaskArray: [
-          {
-            id: 1323423,
-            title: "Subtask 1",
-            isChecked: false,
-          },
-          {
-            id: 1323423,
-            title: "Subtask 2",
-            isChecked: false,
-          },
-          {
-            id: 1323423,
-            title: "Subtask 3",
-            isChecked: false,
-          },
-        ],
-      },
-      {
-        id: 123123,
-        title: "Task 2",
-        date: "06/11/1992",
-        isChecked: true,
-        isScheduled: true,
-        subtask: false,
-        subtaskArray: [],
-      },
-    ];
+    console.log("Scheduled Task ", this.scheduledTasks);
   }
 
   showNotification(text) {
@@ -110,13 +81,14 @@ export class Tab2Page {
 
   delete(item) {
     if (item.date == undefined) {
+      /* 
       this.noScheduledTasks = this.noScheduledTasks.filter((e) => {
         return item.id != e.id;
       });
       localStorage.setItem(
         "noScheduledTasks",
         JSON.stringify(this.noScheduledTasks)
-      );
+      ); */
     } else {
       this.scheduledTasks = this.scheduledTasks.filter((e) => {
         return item.id != e.id;
@@ -196,11 +168,6 @@ export class Tab2Page {
       console.log(d);
       if (d.data["dismissed"] != true) {
         if (d.data.date == undefined) {
-          this.noScheduledTasks.unshift(d.data);
-          localStorage.setItem(
-            "noScheduledTasks",
-            JSON.stringify(this.noScheduledTasks)
-          );
         } else {
           this.scheduledTasks.push(d.data);
           this.scheduledTasks = this.sortArray(this.scheduledTasks);
@@ -223,18 +190,18 @@ export class Tab2Page {
 
   check(task) {
     if (task.date == undefined) {
-      this.noScheduledTasks = this.noScheduledTasks.filter((e) => {
+      /*  this.noScheduledTasks = this.noScheduledTasks.filter((e) => {
         return task.id != e.id;
       });
-      this.noScheduledTasks.push(task);
+      this.noScheduledTasks.push(task); */
     }
 
     localStorage.setItem("scheduledTasks", JSON.stringify(this.scheduledTasks));
 
-    localStorage.setItem(
+    /* localStorage.setItem(
       "noScheduledTasks",
       JSON.stringify(this.noScheduledTasks)
-    );
+    ); */
   }
 
   sortArray(array) {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/tasks"></ion-back-button>
     </ion-buttons>
     <ion-title>Task Detail</ion-title>
   </ion-toolbar>
@@ -15,13 +15,16 @@
     </ion-item>
     <ion-item lines="none">
       <ion-label>Date</ion-label>
-      <h3>{{task.date}}</h3>
+      <h3>{{task.date | date:'shortTime'}}</h3>
     </ion-item>
   </ion-list>
 
   <ion-list>
     <ion-list-header lines="none">
       <ion-label>Subtask</ion-label>
+      <ion-button shape="round" expand="block" (click)="addSubtask()">
+        <ion-icon slot="end" name="add"></ion-icon>
+      </ion-button>
     </ion-list-header>
     <ion-item-sliding *ngFor="let subtask of this.task.subtaskArray">
       <ion-item lines="none">
@@ -35,10 +38,24 @@
         <p>{{subtask.title}}</p>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option (click)="delete(task)">
+        <ion-item-option (click)="delete(subtask)">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <ng-container *ngIf="subtaskInput">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          type="text"
+          [(ngModel)]="subtaskTitle"
+          placeholder="New subtask"
+        ></ion-input>
+        <ion-button (click)="enterSubtask()">+</ion-button>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-footer>

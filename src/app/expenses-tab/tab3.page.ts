@@ -11,6 +11,10 @@ export class Tab3Page {
   totalExpenses: Array<any>;
   expensesArray: Array<any>;
 
+  filterTerm: string;
+
+  date: any;
+
   categoryArray: Array<any>;
 
   expenseObject = {
@@ -20,13 +24,34 @@ export class Tab3Page {
     category: "Alimentacion",
   };
 
-  constructor(private modalController: ModalController) {
-    this.expensesArray = [];
-    this.expensesArray.push(this.expenseObject);
-  }
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {
-    this.expensesArray;
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    this.date = monthNames[new Date().getMonth()];
+
+    let arrayExpense = JSON.parse(localStorage.getItem("expensesArray"))
+      ? JSON.parse(localStorage.getItem("expensesArray"))
+      : [];
+
+    this.expensesArray = arrayExpense.filter((e) => {
+      let month = monthNames[new Date(e.date).getMonth()];
+      return this.date == month;
+    });
   }
 
   async addExpenses() {
@@ -34,10 +59,18 @@ export class Tab3Page {
       component: NewExpensePage,
     });
     modal.onDidDismiss().then((d) => {
-      console.log(d);
-      this.expensesArray.push(d.data);
+      if (d.data["dismissed"] != true) {
+        console.log(d);
+        this.expensesArray.push(d.data);
+        localStorage.setItem(
+          "expensesArray",
+          JSON.stringify(this.expensesArray)
+        );
+      }
     });
 
     return await modal.present();
   }
+
+  filterExpenseByMonth() {}
 }

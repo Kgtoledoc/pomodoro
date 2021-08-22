@@ -8,6 +8,10 @@ const routes: Routes = [
       import("./tabs/tabs.module").then((m) => m.TabsPageModule),
   },
   {
+    path: "*",
+    redirectTo: "",
+  },
+  {
     path: "new-tasks",
     loadChildren: () =>
       import("./pages/new-tasks/new-tasks.module").then(
@@ -48,11 +52,14 @@ const routes: Routes = [
       import("./pages/categories/categories.module").then(
         (m) => m.CategoriesPageModule
       ),
-  },  {
-    path: 'new-expense',
-    loadChildren: () => import('./pages/new-expense/new-expense.module').then( m => m.NewExpensePageModule)
   },
-
+  {
+    path: "new-expense",
+    loadChildren: () =>
+      import("./pages/new-expense/new-expense.module").then(
+        (m) => m.NewExpensePageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
