@@ -10,12 +10,11 @@ import { NewExpensePage } from "../pages/new-expense/new-expense.page";
 export class Tab3Page {
   totalExpenses: Array<any>;
   expensesArray: Array<any>;
-
   filterTerm: string;
-
-  date: any;
-
+  month: any;
   categoryArray: Array<any>;
+  totalExpensesMonthly: Number = null;
+  monthlySalary: Number = null;
 
   expenseObject = {
     date: new Date(),
@@ -41,17 +40,22 @@ export class Tab3Page {
       "November",
       "December",
     ];
+    this.monthlySalary = 100000000;
 
-    this.date = monthNames[new Date().getMonth()];
+    this.month = monthNames[new Date().getMonth()];
 
-    let arrayExpense = JSON.parse(localStorage.getItem("expensesArray"))
+    let totalExpensesArrayStored = JSON.parse(localStorage.getItem("expensesArray"))
       ? JSON.parse(localStorage.getItem("expensesArray"))
       : [];
 
-    this.expensesArray = arrayExpense.filter((e) => {
+    this.expensesArray = totalExpensesArrayStored.filter((e) => {
       let month = monthNames[new Date(e.date).getMonth()];
-      return this.date == month;
+      return this.month == month;
     });
+
+    this.extractTotal(this.expensesArray);
+
+
   }
 
   async addExpenses() {
@@ -66,11 +70,20 @@ export class Tab3Page {
           "expensesArray",
           JSON.stringify(this.expensesArray)
         );
+        this.extractTotal(this.expensesArray)
       }
     });
 
     return await modal.present();
   }
 
-  filterExpenseByMonth() {}
+  extractTotal(array){
+    let total = 0;
+    array.forEach((e) => {
+      total = total + e.price
+      return total
+    })
+    console.log(total)
+    this.totalExpensesMonthly = total
+  } 
 }
