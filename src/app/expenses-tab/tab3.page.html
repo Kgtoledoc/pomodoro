@@ -11,9 +11,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-
     <ion-grid>
       <ion-row class="ion-align-items-center content-header">
         <ion-col size="4">
@@ -26,21 +24,18 @@
           <p>Total Gastos {{ totalExpensesMonthly | currency:'CO' }}</p>
         </ion-col>
       </ion-row>
-
       <ion-list lines="full" *ngFor="let expense of expensesArray">
         <ion-item-sliding>
           <ion-item>
             <ion-grid class="content-task">
               <ion-row>
-                <ion-col class="expense-name" size="4">
+                <ion-col class="start-side-class" size="4">
                   <p>{{expense.name}}</p> 
                 </ion-col>
-                <ion-col size="4">
-                 
+                <ion-col class="center-side-class" size="4">
                     <p>{{expense.price | currency:'CO'}}</p>
                 </ion-col>
                 <ion-col size="4" class="end-side-class">
-                
                     <p>{{expense.date | date:'shortDate'}}</p>
                 </ion-col>
               </ion-row>
@@ -49,13 +44,7 @@
           </ion-item>
         </ion-item-sliding>
       </ion-list>
-
-
-    
     </ion-grid>
-   
-    
- 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addExpenses()">
       <ion-icon name="add"></ion-icon>
