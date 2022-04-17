@@ -8,24 +8,24 @@
 </ion-header>
 
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="false">
   <ion-grid>
-    <ion-list *ngFor="let task of this">
-      <ion-item *ngFor="let subtask of tasks.subtaskarray">
-        <ion-grid>
+    <ion-list *ngFor="let task of this.taskStored">
+      
+      <ion-item *ngFor="let subtask of task.subtaskArray">
+        <ion-grid class="content-task">
           <ion-row>
-            <ion-col>
+            <ion-col size="2">
               <ion-checkbox
-                slot="start"
                 [(ngModel)]="subtask.isChecked"
                 checked="{{subtask.isChecked}}"
                 (ionChange)="check(task)"
               ></ion-checkbox>
             </ion-col>
-            <ion-col>
+            <ion-col size="6">
               <p>{{subtask.title}}</p>
             </ion-col>
-            <ion-col>
+            <ion-col size="4">
               <p>{{task.title}}</p>
             </ion-col>
           </ion-row>
@@ -35,7 +35,7 @@
   </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createTasks()">
+    <ion-fab-button size="small" (click)="createTasks()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

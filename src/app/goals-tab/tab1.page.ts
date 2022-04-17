@@ -8,30 +8,15 @@ import { LocalNotifications } from "@capacitor/core";
 import { v4 as uuidv4 } from "uuid";
 import { NewGoalsPage } from "../pages/new-goals/new-goals.page";
 
-const circleR = 80;
-const circleDasharray = 2 * Math.PI * circleR;
-
 @Component({
   selector: "app-tab1",
   templateUrl: "tab1.page.html",
   styleUrls: ["tab1.page.scss"],
 })
 export class Tab1Page {
-  time: BehaviorSubject<string> = new BehaviorSubject("25:00");
-  percent: BehaviorSubject<number> = new BehaviorSubject(100);
 
-  timer: number;
-  interval;
-  startDuration = 25;
-  pomodoroSeries: number = 0;
-  pomodoroSerie: number = 0;
-  pomodoroTotal: number = 4;
-
-  circleR = circleR;
-  circleDasharray = circleDasharray;
-
-  state: "start" | "stop" = "stop";
-
+  taskStored: Array<any>;
+  
   constructor(
     private alertController: AlertController,
     private nativeAudio: NativeAudio,
@@ -40,10 +25,22 @@ export class Tab1Page {
     private modalController: ModalController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
+    ? JSON.parse(localStorage.getItem("scheduledTasks"))
+    : [];
+    console.log(this.taskStored)
+  }
+
+  ionViewWillEnter() {
+    this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
+    ? JSON.parse(localStorage.getItem("scheduledTasks"))
+    : [];
+    console.log(this.taskStored)
+  }
 
   // Function for open a modal and save the goal created
-  async createGoals() {
+  async createSubtask() {
     const modal = await this.modalController.create({
       component: NewGoalsPage,
     });
