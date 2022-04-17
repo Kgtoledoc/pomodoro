@@ -121,7 +121,7 @@ export class Tab2Page {
       notifications: [
         {
           title: task.title,
-          body: task.description,
+          body: task.title,
           id: Math.random() * 100,
           extra: {
             data: "Pass data to your handler",
