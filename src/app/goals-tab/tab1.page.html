@@ -7,23 +7,32 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item detail>
-      <ion-label> Standard Item with Detail Arrow </ion-label>
-    </ion-item>
-    <ion-item button (click)="buttonClick()" detail>
-      <ion-label> Button Item with Detail Arrow </ion-label>
-    </ion-item>
-
-    <ion-item lines="inset">
-      <ion-label>Item Lines Inset</ion-label>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label>Item Lines Full</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-list *ngFor="let task of this">
+      <ion-item *ngFor="let subtask of tasks.subtaskarray">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-checkbox
+                slot="start"
+                [(ngModel)]="subtask.isChecked"
+                checked="{{subtask.isChecked}}"
+                (ionChange)="check(task)"
+              ></ion-checkbox>
+            </ion-col>
+            <ion-col>
+              <p>{{subtask.title}}</p>
+            </ion-col>
+            <ion-col>
+              <p>{{task.title}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="createTasks()">
