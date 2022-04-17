@@ -5,42 +5,34 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title> New Goal</ion-title>
+    <ion-title> Nueva Tarea</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>Goal</ion-label>
+      <ion-label>Tarea</ion-label>
       <ion-input
         class="end-side-class"
         type="text"
-        [(ngModel)]="title"
+        [(ngModel)]="taskTitle"
       ></ion-input>
     </ion-item>
-    <!-- <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-textarea
-        class="end_side_class"
-        [(ngModel)]="description"
-      ></ion-textarea>
-    </ion-item> -->
     <ion-item>
-      <ion-label>Schedule</ion-label>
-      <ion-toggle [(ngModel)]="isScheduled"></ion-toggle>
+      <ion-label>Actividad</ion-label>
+      <ion-select [(ngModel)]="activitySelected">
+        <ion-select-option
+          *ngFor="let activity of activityStored"
+          [value]="activity.id"
+          >{{activity.title}}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-item disabled="{{!isScheduled}}">
-      <ion-label>Start Time</ion-label>
-      <ion-datetime
-        [(ngModel)]="date"
-        (ionChange)="do($event)"
-        yearValues="2021"
-      ></ion-datetime>
-    </ion-item>
+    
   </ion-list>
 </ion-content>
 
 <ion-footer>
-  <ion-button expand="block" (click)="createNewGoal()">Create</ion-button>
+  <ion-button expand="block" (click)="createNewTask()">Crear Tarea</ion-button>
 </ion-footer>
