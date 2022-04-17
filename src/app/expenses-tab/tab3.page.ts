@@ -73,7 +73,6 @@ export class Tab3Page {
         this.extractTotal(this.expensesArray)
       }
     });
-
     return await modal.present();
   }
 

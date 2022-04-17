@@ -47,7 +47,9 @@ export class Tab1Page {
     modal.onDidDismiss().then((goal) => {
       console.log(goal);
       if (goal.data["dismissed"] != true) {
-        console.log(goal.data);
+        this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
+    ? JSON.parse(localStorage.getItem("scheduledTasks"))
+    : [];
       }
     });
 

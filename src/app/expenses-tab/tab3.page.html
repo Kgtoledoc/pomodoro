@@ -18,7 +18,7 @@
         <p> Salario {{ monthlySalary | currency:'CO':'symbol' }}</p>
       </ion-col>
       <ion-col size="4">
-        <p>{{month}}</p>
+        <p>{{ month }}</p>
       </ion-col>
       <ion-col size="4">
         <p>Total Gastos {{ totalExpensesMonthly | currency:'CO': 'symbol' }}</p>
@@ -34,13 +34,13 @@
             <ion-grid class="content-task">
               <ion-row>
                 <ion-col class="start-side-class" size="4">
-                  <p>{{expense.name}}</p> 
+                  <p>{{ expense.name }}</p> 
                 </ion-col>
                 <ion-col class="center-side-class" size="4">
-                    <p>{{expense.price | currency:'COP':'symbol'}}</p>
+                    <p>{{ expense.price | currency:'COP':'symbol' }}</p>
                 </ion-col>
                 <ion-col size="4" class="end-side-class">
-                    <p>{{expense.date | date:'shortDate'}}</p>
+                    <p>{{ expense.date | date:'shortDate' }}</p>
                 </ion-col>
               </ion-row>
             </ion-grid>
