@@ -14,9 +14,9 @@ import { NewGoalsPage } from "../pages/new-goals/new-goals.page";
   styleUrls: ["tab1.page.scss"],
 })
 export class Tab1Page {
-
   taskStored: Array<any>;
-  
+  taskObjectArray: Array<any>;
+
   constructor(
     private alertController: AlertController,
     private nativeAudio: NativeAudio,
@@ -27,16 +27,19 @@ export class Tab1Page {
 
   ngOnInit() {
     this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
-    ? JSON.parse(localStorage.getItem("scheduledTasks"))
-    : [];
-    console.log(this.taskStored)
+      ? JSON.parse(localStorage.getItem("scheduledTasks"))
+      : [];
+    console.log(this.taskStored);
+    this.taskObjectArray = this.extractTaskFromScheduledTask(this.taskStored);
   }
 
   ionViewWillEnter() {
     this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
-    ? JSON.parse(localStorage.getItem("scheduledTasks"))
-    : [];
-    console.log(this.taskStored)
+      ? JSON.parse(localStorage.getItem("scheduledTasks"))
+      : [];
+    console.log(this.taskStored);
+    console.log(this.extractTaskFromScheduledTask(this.taskStored));
+    this.taskObjectArray = this.extractTaskFromScheduledTask(this.taskStored);
   }
 
   // Function for open a modal and save the goal created
@@ -48,11 +51,22 @@ export class Tab1Page {
       console.log(goal);
       if (goal.data["dismissed"] != true) {
         this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
-    ? JSON.parse(localStorage.getItem("scheduledTasks"))
-    : [];
+          ? JSON.parse(localStorage.getItem("scheduledTasks"))
+          : [];
       }
     });
 
     return await modal.present();
+  }
+
+  extractTaskFromScheduledTask(array) {
+    let arr = [];
+    array.forEach((e) => {
+      e.subtaskArray.forEach((element) => {
+        arr.push({ ...element, taskTitle: e.title });
+      });
+    });
+
+    return arr;
   }
 }

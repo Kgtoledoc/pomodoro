@@ -12,17 +12,14 @@ export class NewTasksPage implements OnInit {
   id: string;
   title: string = "";
   date: string = "";
-  isChecked: Boolean;
-  isScheduled: Boolean;
 
   constructor(
     public modalController: ModalController,
     private toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {
-    this.isScheduled = false;
-  }
+  ngOnInit() {}
+  
 
   async presentToast(text) {
     const toast = await this.toastCtrl.create({
@@ -43,7 +40,6 @@ export class NewTasksPage implements OnInit {
   createTasks() {
     if (
       this.title.length > 0 &&
-      this.isScheduled == true &&
       this.date.length > 0
     ) {
       let seconds = this.date.split(":")[2].split(".");
@@ -58,28 +54,21 @@ export class NewTasksPage implements OnInit {
         date: new Date(dateModified),
         isChecked: false,
         id: uuidv4(),
-        isScheduled: this.isScheduled,
         subtaskArray: [],
-        subtask: true,
       };
       this.modalController.dismiss(task);
-    } else if (this.title.length > 0 && this.isScheduled == false) {
+    } else if (this.title.length > 0) {
       let task = {
         title: this.title,
         date: undefined,
         isChecked: false,
         id: uuidv4(),
-        isScheduled: this.isScheduled,
         subtaskArray: [],
-        subtask: true,
       };
       this.modalController.dismiss(task);
     } else {
-      this.presentToast("Fill all fields");
+      this.presentToast("Llenar todos los campos");
     }
   }
 
-  do(d) {
-    console.log("date", d);
-  }
 }

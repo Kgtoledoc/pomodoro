@@ -44,7 +44,9 @@ export class Tab3Page {
 
     this.month = monthNames[new Date().getMonth()];
 
-    let totalExpensesArrayStored = JSON.parse(localStorage.getItem("expensesArray"))
+    let totalExpensesArrayStored = JSON.parse(
+      localStorage.getItem("expensesArray")
+    )
       ? JSON.parse(localStorage.getItem("expensesArray"))
       : [];
 
@@ -54,8 +56,6 @@ export class Tab3Page {
     });
 
     this.extractTotal(this.expensesArray);
-
-
   }
 
   async addExpenses() {
@@ -70,19 +70,19 @@ export class Tab3Page {
           "expensesArray",
           JSON.stringify(this.expensesArray)
         );
-        this.extractTotal(this.expensesArray)
+        this.extractTotal(this.expensesArray);
       }
     });
     return await modal.present();
   }
 
-  extractTotal(array){
+  extractTotal(array) {
     let total = 0;
     array.forEach((e) => {
-      total = total + e.price
-      return total
-    })
-    console.log(total)
-    this.totalExpensesMonthly = total
-  } 
+      total = total + e.price;
+      return total;
+    });
+    console.log(total);
+    this.totalExpensesMonthly = total;
+  }
 }

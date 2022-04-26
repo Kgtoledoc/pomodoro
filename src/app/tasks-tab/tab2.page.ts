@@ -7,6 +7,7 @@ import {
   AlertController,
   ModalController,
   NavController,
+  Platform,
   ToastController,
 } from "@ionic/angular";
 import { v4 as uuidv4 } from "uuid";
@@ -29,15 +30,13 @@ export class Tab2Page {
     private toastCtrl: ToastController,
     private nativeAudio: NativeAudio, //private localNotifications: LocalNotifications
     private navController: NavController,
+    private platform: Platform,
     private router: Router
-  ) {
-    console.log("INSIDE CONTRUCTOR");
-  }
+  ) {}
 
   async ngOnInit() {
     console.log("INSIDE NGONINIT");
     await LocalNotifications.requestPermission();
-    this.state = "ngOnInit";
 
     this.scheduledTasks = JSON.parse(localStorage.getItem("scheduledTasks"))
       ? JSON.parse(localStorage.getItem("scheduledTasks"))
@@ -63,45 +62,14 @@ export class Tab2Page {
     console.log("Scheduled Task ", this.scheduledTasks);
   }
 
-  showNotification(text) {
-    LocalNotifications.schedule({
-      notifications: [
-        {
-          title: text.title,
-          body: text.body,
-          id: uuidv4(),
-          extra: {
-            data: "Pass data to your handler",
-          },
-          iconColor: "#0000FF",
-        },
-      ],
-    });
-  }
-
   delete(item) {
-    if (item.date == undefined) {
-      /* 
-      this.noScheduledTasks = this.noScheduledTasks.filter((e) => {
-        return item.id != e.id;
-      });
-      localStorage.setItem(
-        "noScheduledTasks",
-        JSON.stringify(this.noScheduledTasks)
-      ); */
-    } else {
-      this.scheduledTasks = this.scheduledTasks.filter((e) => {
-        return item.id != e.id;
-      });
-      localStorage.setItem(
-        "scheduledTasks",
-        JSON.stringify(this.scheduledTasks)
-      );
-    }
+    this.scheduledTasks = this.scheduledTasks.filter((e) => {
+      return item.id != e.id;
+    });
+    localStorage.setItem("scheduledTasks", JSON.stringify(this.scheduledTasks));
   }
 
   transformDate() {
-    //console.log("Transform Date");
     let dateNow = new Date(Date.now()).toDateString();
 
     this.scheduledTasks.forEach((task) => {
@@ -130,6 +98,7 @@ export class Tab2Page {
           schedule: {
             at: new Date(task.date),
           },
+          sound: this.setSound(),
         },
       ],
     });
@@ -137,10 +106,10 @@ export class Tab2Page {
 
   async scheduleOneTask(task) {
     if (new Date(task.date).getTime() >= new Date(Date.now()).getTime()) {
-      this.presentToast("Task is scheduled");
+      this.presentToast("Actividades programadas");
       this.scheduledFunction(task);
     } else {
-      this.presentToast("The time is less that current time");
+      this.presentToast("Tiempo es menor al actual. Actividad no programada");
     }
   }
 
@@ -154,9 +123,9 @@ export class Tab2Page {
       }
     });
     if (counter > 0) {
-      this.presentToast("Scheduled all task greater than actual time!");
+      this.presentToast("Actividades programadas");
     } else {
-      this.presentToast("Tasks is not scheduled!");
+      this.presentToast("Actividades no programadas");
     }
   }
 
@@ -175,7 +144,7 @@ export class Tab2Page {
             "scheduledTasks",
             JSON.stringify(this.scheduledTasks)
           );
-          if (d.data.isScheduled == true) {
+          if (d.data.date != undefined) {
             this.scheduleOneTask(d.data);
           } else {
             console.log("Not scheduled!");
@@ -233,10 +202,12 @@ export class Tab2Page {
     console.log(navigationExtras);
     this.router.navigate(["/tasks/task-detail"], navigationExtras);
   }
+
+  setSound() {
+    if (this.platform.is("android")) {
+      return "file://assets/sounds/bell.wav";
+    } else {
+      return "file://assets/sounds/bell.mp3";
+    }
+  }
 }
-
-// Following tasks
-
-// checked when the time of schedule is finished
-// Fix the timer and try to integrate the pomodore inside the tasks, like an icon.
-// Launch the schedule automatic when init the task
