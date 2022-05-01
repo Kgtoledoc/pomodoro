@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>New Expense</ion-title>
+    <ion-title>Nuevo Gasto</ion-title>
     <ion-buttons slot="start">
       <ion-button color="dark" (click)="dismiss()">
         <ion-icon name="arrow-back"></ion-icon>
@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>Name</ion-label>
+      <ion-label>Gasto</ion-label>
       <ion-input
         class="end-side-class"
         type="text"
@@ -20,7 +20,7 @@
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Price</ion-label>
+      <ion-label>Precio</ion-label>
 
       <ion-input
         class="end-side-class"
@@ -30,7 +30,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Category</ion-label>
+      <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="category">
         <ion-select-option
           *ngFor="let category of categories"
@@ -43,5 +43,5 @@
 </ion-content>
 
 <ion-footer>
-  <ion-button expand="block" (click)="createExpense()">Create</ion-button>
+  <ion-button expand="block" (click)="createExpense()">Crear</ion-button>
 </ion-footer>

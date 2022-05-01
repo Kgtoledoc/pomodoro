@@ -5,6 +5,9 @@
   "npmClient": "npm",
   "webDir": "www",
   "plugins": {
+    "LocalNotifications": {
+      "sound": "bell.wav"
+    },
     "SplashScreen": {
       "launchShowDuration": 0
     }

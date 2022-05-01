@@ -5,7 +5,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="presentAlertPrompt()">
         <ion-icon name="filter-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -15,39 +15,41 @@
   <ion-grid>
     <ion-row class="ion-align-items-center content-header">
       <ion-col size="4">
-        <p> Salario {{ monthlySalary | currency:'CO':'symbol' }}</p>
+        <p>Salario {{ monthlySalary | currency:'COP ':'symbol' }}</p>
       </ion-col>
       <ion-col size="4">
         <p>{{ month }}</p>
       </ion-col>
       <ion-col size="4">
-        <p>Total Gastos {{ totalExpensesMonthly | currency:'CO': 'symbol' }}</p>
+        <p>
+          Total Gastos {{ totalExpensesMonthly | currency:'COP ': 'symbol' }}
+        </p>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-header>
 <ion-content [fullscreen]="false">
-    <ion-grid>
-      <ion-list lines="full" *ngFor="let expense of expensesArray">
-        <ion-item-sliding>
-          <ion-item>
-            <ion-grid class="content-task">
-              <ion-row>
-                <ion-col class="start-side-class" size="4">
-                  <p>{{ expense.name }}</p> 
-                </ion-col>
-                <ion-col class="center-side-class" size="4">
-                    <p>{{ expense.price | currency:'COP':'symbol' }}</p>
-                </ion-col>
-                <ion-col size="4" class="end-side-class">
-                    <p>{{ expense.date | date:'shortDate' }}</p>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </ion-item-sliding>
-      </ion-list>
-    </ion-grid>
+  <ion-grid>
+    <ion-list lines="full" *ngFor="let expense of expensesArray">
+      <ion-item-sliding>
+        <ion-item>
+          <ion-grid class="content-task">
+            <ion-row>
+              <ion-col class="start-side-class" size="4">
+                <p>{{ expense.name }}</p>
+              </ion-col>
+              <ion-col class="center-side-class" size="4">
+                <p>{{ expense.price | currency:'COP ':'symbol' }}</p>
+              </ion-col>
+              <ion-col size="4" class="end-side-class">
+                <p>{{ expense.date | date:'shortDate' }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button size="small" color="secondary" (click)="addExpenses()">
       <ion-icon name="add"></ion-icon>

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { NewExpensePage } from "../pages/new-expense/new-expense.page";
 
 @Component({
@@ -15,15 +15,14 @@ export class Tab3Page {
   categoryArray: Array<any>;
   totalExpensesMonthly: Number = null;
   monthlySalary: Number = null;
+  flagMonthlySalary: Boolean = false;
 
-  expenseObject = {
-    date: new Date(),
-    price: "1000",
-    name: "Almuerzo",
-    category: "Alimentacion",
-  };
 
-  constructor(private modalController: ModalController) {}
+
+  constructor(
+    private modalController: ModalController,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     const monthNames = [
@@ -40,7 +39,11 @@ export class Tab3Page {
       "November",
       "December",
     ];
-    this.monthlySalary = 100000000;
+    this.monthlySalary = JSON.parse(localStorage.getItem('monthlySalary')) ? JSON.parse(localStorage.getItem('monthlySalary')) : null;
+    if (this.monthlySalary == null) {
+      this.presentAlertPrompt()
+    }
+
 
     this.month = monthNames[new Date().getMonth()];
 
@@ -85,4 +88,45 @@ export class Tab3Page {
     console.log(total);
     this.totalExpensesMonthly = total;
   }
+
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      cssClass: "my-custom-class",
+      header: "Ingrese el valor del salario:",
+      inputs: [
+        {
+          name: "salary",
+          type: "number",
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: (data) => {
+            this.monthlySalary = data.salary
+            this.saveMonthlySalary()
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  saveMonthlySalary() {
+    localStorage.setItem(
+      "monthlySalary",
+      JSON.stringify(this.monthlySalary)
+    );
+  }
+
+
 }

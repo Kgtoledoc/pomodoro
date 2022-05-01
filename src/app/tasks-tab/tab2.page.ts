@@ -32,7 +32,7 @@ export class Tab2Page {
     private navController: NavController,
     private platform: Platform,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit() {
     console.log("INSIDE NGONINIT");
@@ -98,7 +98,6 @@ export class Tab2Page {
           schedule: {
             at: new Date(task.date),
           },
-          sound: this.setSound(),
         },
       ],
     });
@@ -203,11 +202,5 @@ export class Tab2Page {
     this.router.navigate(["/tasks/task-detail"], navigationExtras);
   }
 
-  setSound() {
-    if (this.platform.is("android")) {
-      return "file://assets/sounds/bell.wav";
-    } else {
-      return "file://assets/sounds/bell.mp3";
-    }
-  }
+
 }
