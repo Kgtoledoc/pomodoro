@@ -3,7 +3,7 @@ import { NativeAudio } from "@ionic-native/native-audio/ngx";
 import { AlertController, ModalController, Platform } from "@ionic/angular";
 import { BehaviorSubject } from "rxjs";
 import { TextToSpeech } from "@ionic-native/text-to-speech/ngx";
-import { LocalNotifications } from "@capacitor/core";
+
 
 import { v4 as uuidv4 } from "uuid";
 import { NewGoalsPage } from "../pages/new-goals/new-goals.page";
@@ -23,7 +23,7 @@ export class Tab1Page {
     private platform: Platform,
     private tts: TextToSpeech,
     private modalController: ModalController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.taskStored = JSON.parse(localStorage.getItem("scheduledTasks"))
@@ -68,5 +68,9 @@ export class Tab1Page {
     });
 
     return arr;
+  }
+
+  check(task) {
+    console.log("Check task", task)
   }
 }

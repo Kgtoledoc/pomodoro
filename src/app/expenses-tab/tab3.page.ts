@@ -13,8 +13,8 @@ export class Tab3Page {
   filterTerm: string;
   month: any;
   categoryArray: Array<any>;
-  totalExpensesMonthly: Number = null;
-  monthlySalary: Number = null;
+  totalExpensesMonthly: number;
+  monthlySalary: number;
   flagMonthlySalary: Boolean = false;
 
 

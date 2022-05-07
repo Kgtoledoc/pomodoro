@@ -16,10 +16,10 @@ export class NewTasksPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private toastCtrl: ToastController
-  ) {}
+  ) { }
 
-  ngOnInit() {}
-  
+  ngOnInit() { }
+
 
   async presentToast(text) {
     const toast = await this.toastCtrl.create({
@@ -35,6 +35,10 @@ export class NewTasksPage implements OnInit {
     this.modalController.dismiss({
       dismissed: true,
     });
+  }
+
+  do(event) {
+    console.log("Event", event);
   }
 
   createTasks() {

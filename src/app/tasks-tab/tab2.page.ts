@@ -1,7 +1,8 @@
 import { importExpr } from "@angular/compiler/src/output/output_ast";
 import { Component } from "@angular/core";
+import { LocalNotifications } from "@capacitor/local-notifications";
 import { NavigationExtras, Router } from "@angular/router";
-import { LocalNotification, Plugins } from "@capacitor/core";
+
 import { NativeAudio } from "@ionic-native/native-audio/ngx";
 import {
   AlertController,
@@ -12,8 +13,7 @@ import {
 } from "@ionic/angular";
 import { v4 as uuidv4 } from "uuid";
 import { NewTasksPage } from "../pages/new-tasks/new-tasks.page";
-//import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
-const { LocalNotifications } = Plugins;
+
 
 @Component({
   selector: "app-tab2",
@@ -22,7 +22,6 @@ const { LocalNotifications } = Plugins;
 })
 export class Tab2Page {
   scheduledTasks: Array<any>;
-  state: string = "";
 
   constructor(
     public modalController: ModalController,
@@ -31,12 +30,13 @@ export class Tab2Page {
     private nativeAudio: NativeAudio, //private localNotifications: LocalNotifications
     private navController: NavController,
     private platform: Platform,
-    private router: Router
+    private router: Router,
+
   ) { }
 
   async ngOnInit() {
     console.log("INSIDE NGONINIT");
-    await LocalNotifications.requestPermission();
+    await LocalNotifications.requestPermissions();
 
     this.scheduledTasks = JSON.parse(localStorage.getItem("scheduledTasks"))
       ? JSON.parse(localStorage.getItem("scheduledTasks"))

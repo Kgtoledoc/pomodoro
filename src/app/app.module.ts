@@ -10,7 +10,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { NativeAudio } from "@ionic-native/native-audio/ngx";
 import { FormsModule } from "@angular/forms";
-import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
 import { TextToSpeech } from "@ionic-native/text-to-speech/ngx";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
@@ -33,8 +32,7 @@ import { environment } from "../environments/environment";
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     NativeAudio,
     TextToSpeech,
-    LocalNotifications,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
